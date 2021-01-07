@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  mysqlsrv:
+    container_name: "mysql-cursomc"
+    image: mysql:8.0.22
+    environment:
+      MYSQL_ROOT_PASSWORD: "123456"
+      MYSQL_DATABASE: "cursomc"
+    ports:
+      - "3306:3306"
+    networks:
+      - mysql-cursomc-network
+networks:
+  mysql-cursomc-network:
+    driver: bridge
