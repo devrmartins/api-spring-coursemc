@@ -2,6 +2,7 @@ package br.com.devrmartins.cursomc.domains;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 @Table(name="categories")
@@ -17,6 +18,7 @@ public class Category implements Serializable {
     }
 
     public Category(String name) {
+        super();
         this.name = name;
     }
 
@@ -38,5 +40,18 @@ public class Category implements Serializable {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Category category = (Category) o;
+        return id.equals(category.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
