@@ -1,7 +1,11 @@
 package br.com.devrmartins.cursomc.domains;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -13,6 +17,10 @@ public class Category implements Serializable {
     private Integer id;
 
     private String name;
+
+    @JsonBackReference
+    @ManyToMany(mappedBy = "categories")
+    private List<Product> products = new ArrayList<>();
 
     public Category() {
     }
@@ -34,6 +42,14 @@ public class Category implements Serializable {
         this.name = name;
     }
 
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
+
     @Override
     public String toString() {
         return "Category{" +
@@ -47,7 +63,7 @@ public class Category implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Category category = (Category) o;
-        return id.equals(category.id);
+        return Objects.equals(id, category.id);
     }
 
     @Override
